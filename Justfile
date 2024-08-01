@@ -1,3 +1,4 @@
+set dotenv-load
 R_version := "4.4.1"
 
 # build apptainer
@@ -7,4 +8,8 @@ build:
 # shell into apptainer
 shell:
   apptainer shell r_geo_v{{R_version}}.sif
-  
+
+# push apptainer to ghcr.io
+push_ghcr:
+  apptainer registry login --username cole-brokamp --password $GITHUB_PAT docker://ghcr.io
+  apptainer push r_geo_v{{R_version}}.sif oras://ghcr.io/cole-brokamp/apptainer_r_geo:{{R_version}}
