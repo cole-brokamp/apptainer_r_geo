@@ -49,6 +49,7 @@ apt-get -y update && apt-get install -y  libudunits2-dev libgdal-dev libgeos-dev
 %post
 R -e "install.packages('pak', repos = 'https://packagemanager.posit.co/cran/__linux__/jammy/latest')"
 export PKG_CRAN_MIRROR="https://packagemanager.posit.co/cran/__linux__/jammy/latest"
+export R_DEFAULT_INTERNET_TIMEOUT=600
 
 %test
 ( R --version | grep -q 'R version' ) && echo 'R is available'
