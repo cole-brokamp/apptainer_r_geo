@@ -59,4 +59,5 @@ export R_DEFAULT_INTERNET_TIMEOUT=600
 
 %test
 ( R --version | grep -q 'R version' ) && echo 'R is available'
+R -e "sessionInfo()"
 
