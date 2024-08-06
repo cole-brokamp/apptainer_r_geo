@@ -45,6 +45,12 @@ wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb && 
 
 %post
 apt-get -y update && apt-get install -y  libudunits2-dev libgdal-dev libgeos-dev libproj-dev
+apt-get -y update && apt-get install -y  unixodbc-dev tdsodbc odbc-postgresql libsqliteodbc
+
+%post
+curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc
+curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
+apt-get -y update && ACCEPT_EULA=Y apt-get install -y msodbcsql18
 
 %post
 R -e "install.packages('pak', repos = 'https://packagemanager.posit.co/cran/__linux__/jammy/latest')"
