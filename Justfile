@@ -14,7 +14,7 @@ shell:
 # tag and push to github
 tag:
   git tag {{version_tag}}
-  git push {{version_tag}}
+  git push origin tag {{version_tag}}
 
 # push apptainer to ghcr.io
 push_ghcr:
