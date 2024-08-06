@@ -1,10 +1,11 @@
 set dotenv-load
 R_version := "4.4.1"
-app_version := `git rev-parse --short HEAD`
+app_version := "9001"
 version_tag := R_version + "-" + app_version
 
 # build apptainer
 build:
+  git tag {{version_tag}}
   apptainer build --force --build-arg R_VERSION={{R_version}} r_geo_v{{version_tag}}.sif r_geo.def
 
 # shell into apptainer
