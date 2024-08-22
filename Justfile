@@ -1,11 +1,12 @@
 set dotenv-load
 R_version := "4.4.1"
-app_version := "9002"
+Python_version := "3.12.4"
+app_version := "9010"
 version_tag := R_version + "." + app_version
 
 # build apptainer
 build:
-  apptainer build --force --build-arg R_VERSION={{R_version}} r_geo_v{{version_tag}}.sif r_geo.def
+  apptainer build --force --build-arg R_VERSION={{R_version}} --build-arg PYTHON_VERSION={{Python_version}} r_geo_v{{version_tag}}.sif r_geo.def
 
 # shell into apptainer
 shell:

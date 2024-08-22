@@ -44,6 +44,14 @@ wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb && 
   rm r-${R_VERSION}_1_amd64.deb
 
 %post
+export PYTHON_VERSION={{ PYTHON_VERSION }}
+curl -O https://cdn.rstudio.com/python/ubuntu-2204/pkgs/python-${PYTHON_VERSION}_1_amd64.deb
+apt-get update -qq && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -f -y ./python-${PYTHON_VERSION}_1_amd64.deb && \
+  ln -s /opt/python/${PYTHON_VERSION}/bin/python /usr/bin/python && \
+  /opt/python/"${PYTHON_VERSION}"/bin/pip install --upgrade pip setuptools wheel
+
+%post
 apt-get -y update && apt-get install -y  libudunits2-dev libgdal-dev libgeos-dev libproj-dev
 apt-get -y update && apt-get install -y  unixodbc-dev tdsodbc odbc-postgresql libsqliteodbc
 
@@ -60,4 +68,5 @@ export R_DEFAULT_INTERNET_TIMEOUT=600
 %test
 ( R --version | grep -q 'R version' ) && echo 'R is available'
 R -e "sessionInfo()"
+( python --version | grep -q 'Python' ) && echo 'R is available'
 
