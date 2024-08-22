@@ -1,7 +1,7 @@
 set dotenv-load
 R_version := "4.4.1"
 Python_version := "3.12.4"
-app_version := "9002"
+app_version := "9010"
 version_tag := R_version + "." + app_version
 
 # build apptainer
